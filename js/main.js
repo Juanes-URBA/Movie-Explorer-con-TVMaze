@@ -3,10 +3,11 @@ import { renderShows, renderShowDetail, renderFavorites } from "./ui.js";
 import { getFavorites } from "./persistence.js";
 import { getState, setState } from "./state.js";
 
-/* INDEX */
+// Index 
 if (document.getElementById("cards")){
   init();
 
+// Buscador
   document.getElementById("searchInput")
     .addEventListener("input", async(e)=>{
       const q = e.target.value;
@@ -30,16 +31,18 @@ if (document.getElementById("cards")){
       updateView();
     });
 
+  // Botones de paginación
   document.getElementById("prevBtn").onclick = () => changePage(-1);
   document.getElementById("nextBtn").onclick = () => changePage(1);
 }
-
+// Inicializa datos
 async function init(){
   const data = await getShows();
   setState("shows", data);
   updateView();
 }
 
+// Renderiza lista paginada
 function updateView(){
   const shows = getState("shows");
   const page = getState("page");
@@ -53,7 +56,7 @@ function updateView(){
   document.getElementById("pageInfo").textContent =
     `Página ${page}`;
 }
-
+// Cambia de página
 function changePage(step){
   const page = getState("page");
   const shows = getState("shows");
@@ -69,20 +72,20 @@ function changePage(step){
   }
 }
 
-/* DETALLE */
+//Detalle
 if (document.getElementById("detail")){
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  loadDetail(id);
+  loadDetail(id);// carga detalle
 }
-
+// Renderiza detalle de un show
 async function loadDetail(id){
   const show = await getShowById(id);
   renderShowDetail(show);
 }
 
-/* FAVORITOS */
+// Favoritos 
 if (document.getElementById("favorites")){
   const favs = getFavorites();
   renderFavorites(favs);
