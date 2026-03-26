@@ -1,5 +1,5 @@
-import { addFavorite, removeFavorite, getFavorites } from "./persistance.js";
-import { getShowById } from "./service.js";
+import { addFavorite, removeFavorite, getFavorites } from "./persistence.js";
+import { getShowById } from "./services.js";
 
 export function renderShows(shows){
     const container = document.getElementById("cards");
